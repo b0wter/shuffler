@@ -1,0 +1,171 @@
+body {
+    background: black;
+    margin: 0;
+}
+
+.container {
+    overflow: hidden;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.gray {
+    color: gray;
+}
+
+.light-gray {
+    color: lightgray;
+}
+
+.mb-1 {
+    margin-bottom: 1em;
+}
+
+.mt-05 {
+    margin-top: 0.5em;
+}
+
+.ml-1 {
+    margin-left: 1em;
+}
+
+.ml-2 {
+    margin-left: 2em;
+}
+
+.mr-2 {
+    margin-right: 2em;
+}
+
+#cover {
+    width: calc(90vw);
+    height: 100%;
+    max-width: 640px;
+    max-height: 640px;
+}
+
+.max-width-90 {
+    max-width: calc(90vw);
+}
+
+.small {
+    font-size: small;
+}
+
+.center-text {
+    text-align: center;
+}
+
+#footer {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 2em;
+    left: 0;
+}
+
+#header {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 1em;
+    left: 0;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-around {
+    justify-content: space-around;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.button {
+    width: 4.5em;
+}
+
+.alert-warning {
+    color: rgb(251, 215, 112);
+    background-color: rgb(61, 46, 0);
+}
+
+a.alert-warning {
+    color: rgb(251, 215, 112);
+}
+a.alert-warning:visited {
+    color: rgb(251, 215, 112);
+}
+a.alert-warning:hover {
+    color: rgb(251, 215, 112);
+}
+
+#blacklist-alert {
+    margin-bottom: 2em;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding: 0.5em;
+    border: 1px none rebeccapurple;
+    border-radius: 0.25em;
+}
+
+/*
+body {
+    background-color: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    font-size: .9em;
+}
+
+h1 {
+    font-size: 1.5em;
+    color: #334499;
+}
+
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+}
+.flex-container {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.row {
+    width: auto;
+    max-width: 90vw;
+    border: 1px solid blue;
+}
+.flex-item {
+    background-color: tomato;
+    #padding: 5px;
+    #max-width: 90vw;
+    #height: 20px;
+    #margin: 10px;
+    #line-height: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+*/

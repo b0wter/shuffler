@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{19607D47-AA4E-4453-943D-86872953681B}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Shuffler.WebApp", "src\webapp\Shuffler.WebApp.fsproj", "{1EAC8C96-67F3-4AD6-AC12-5BCC5A2A0976}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Shuffler.Spotify", "src\spotify\Shuffler.Spotify.fsproj", "{F6339771-FE3F-4474-961B-EF0DDB1BBA4D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{63F3BD98-941C-4190-8A06-9EA2D55745E7}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Shuffler.Spotify.IntegrationTests", "tests\spotify\Shuffler.Spotify.IntegrationTests.fsproj", "{5B30C5B8-A651-4A51-BF54-72300E9D2386}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Shuffler.Contracts", "src\contracts\Shuffler.Contracts.fsproj", "{A12FDA38-5B26-4DED-9656-360A3585B2BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1EAC8C96-67F3-4AD6-AC12-5BCC5A2A0976}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EAC8C96-67F3-4AD6-AC12-5BCC5A2A0976}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EAC8C96-67F3-4AD6-AC12-5BCC5A2A0976}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EAC8C96-67F3-4AD6-AC12-5BCC5A2A0976}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6339771-FE3F-4474-961B-EF0DDB1BBA4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6339771-FE3F-4474-961B-EF0DDB1BBA4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6339771-FE3F-4474-961B-EF0DDB1BBA4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6339771-FE3F-4474-961B-EF0DDB1BBA4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B30C5B8-A651-4A51-BF54-72300E9D2386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B30C5B8-A651-4A51-BF54-72300E9D2386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B30C5B8-A651-4A51-BF54-72300E9D2386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B30C5B8-A651-4A51-BF54-72300E9D2386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A12FDA38-5B26-4DED-9656-360A3585B2BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A12FDA38-5B26-4DED-9656-360A3585B2BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A12FDA38-5B26-4DED-9656-360A3585B2BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A12FDA38-5B26-4DED-9656-360A3585B2BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1EAC8C96-67F3-4AD6-AC12-5BCC5A2A0976} = {19607D47-AA4E-4453-943D-86872953681B}
+		{F6339771-FE3F-4474-961B-EF0DDB1BBA4D} = {19607D47-AA4E-4453-943D-86872953681B}
+		{5B30C5B8-A651-4A51-BF54-72300E9D2386} = {63F3BD98-941C-4190-8A06-9EA2D55745E7}
+		{A12FDA38-5B26-4DED-9656-360A3585B2BB} = {19607D47-AA4E-4453-943D-86872953681B}
+	EndGlobalSection
+EndGlobal
