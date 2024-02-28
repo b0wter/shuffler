@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Randomly selects a 'Die drei Fragezeichen' episode for you to listen to on Spotify." />
+    <meta property="og:title" content="Die drei Fragezeichen Shuffle" />
+    <meta property="og:type" content="website" />
+    <title>Die drei Fragezeichen Shuffle</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+    <!-- background image -->
+    <div id="background-image-container" class="h-100 w-100">
+
+        <!-- color overlay -->
+        <div id="background-color-overlay" class="h-100vh">
+            
+            <!-- layout container -->
+            <!-- blur is on this level because it only effects backdrop elements -->
+            <div id="layout-container" class="d-flex justify-content-space-between no-wrap-column">
+
+                <!-- social links -->
+                <div class="d-flex justify-content-center align-items-center" style="height: 100px; margin-top: 5vh">
+                    <a class="mr-05 p-20" href="https://github.com/b0wter/shuffler"><img class="social-button" src="github.svg" alt="Link to github"/></a>
+                    <a class="ml-05 p-20" href="https://x.com/b0wter"><img class="social-button" src="x.svg" alt="Link to X"/></a>
+                </div>
+                
+                <!-- album cover -->
+                <div class="d-flex justify-content-center" style="max-height: calc(80vh - 300px)">
+                    <img style="max-height: 100%; max-width: 95vw; border-radius: 20px;" src="cover.png" alt="album cover" />
+                </div>
+                
+                <!-- bottom elements: controls & blacklist -->
+                <div>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <a href="/"><img class="p-15" style="padding: 1.5em;" src="block.svg"  alt="block current album"/></a>
+                        <a href="/"><img style="height: 10rem" src="play.svg"  alt="play current album on Spotify"/></a>
+                        <a href="/"><img class="p-15" style="padding: 1.5rem;" src="next.svg"  alt="get next suggestion"/></a>
+                    </div>
+                    <a style="text-decoration: none; color:white;" href="#">
+                        <div class="d-flex justify-content-center align-items-center" style="font-family: urbanist,sans-serif; font-weight: 1000; height: 5rem; text-transform: uppercase">clear blacklist (0 elements)</div>
+                    </a>
+                </div>
+
+                <!-- fancy color effect -->
+                <div style="opacity: 0.4; width: 239.62px; height: 244.60px; left: calc(50vw - 120px); top: calc(100vh); position: absolute; transform: rotate(-43.55deg); transform-origin: 0 0">
+                    <div style="width: 133.77px; height: 179.56px; left: 0; top: 0; position: absolute; transform: rotate(-43.55deg); transform-origin: 0 0; background: #DF030E; box-shadow: 210.86053466796875px 210.86053466796875px 210.86053466796875px; filter: blur(210.86px)"></div>
+                    <div style="width: 133.54px; height: 183.31px; left: 119.12px; top: -28.67px; position: absolute; transform: rotate(-43.55deg); transform-origin: 0 0; background: #04A5E3; box-shadow: 210.86053466796875px 210.86053466796875px 210.86053466796875px; filter: blur(210.86px)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

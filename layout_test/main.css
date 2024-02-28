@@ -1,0 +1,128 @@
+@font-face {
+    font-family: 'Urbanist';
+    src: url(urbanist.woff2);
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+img.cover {
+    border-radius: 20px;
+}
+
+.row-1 {
+    height: 12.5vh;
+}
+
+.row-3 {
+    height: 37.5vh;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.h-100vh {
+    height: 100vh;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-100vw {
+    width: 100vw;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-space-between {
+    justify-content: space-between;
+}
+
+.no-wrap-column {
+    flex-flow: column nowrap;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.mr-05 {
+    margin-right: 0.5rem;
+}
+
+.ml-05{
+    margin-left: 0.5rem;
+}
+
+.p-20 {
+    padding: 2rem;
+}
+
+.p-15 {
+    padding: 1.5rem;
+}
+
+.social-button {
+    height: 1.5rem;
+}
+
+#layout-container {
+    height: 87.5vh;
+    backdrop-filter: blur(3px)
+}
+
+#background-image-container {
+    background-position: 60% 50%;
+    background-image: url(cover.png);
+    background-size: 250vh;
+    background-color: #00000055;
+}
+
+#background-color-overlay {
+    background: #000000dd;
+    overflow: hidden;
+}
+
+/*
+#background-cover-200-plus {
+    background-image: url(cover.png);
+    background-size: calc(250vh);
+    background-position: 60% 50%;
+}
+
+#background-cover {
+    background-image: url(cover.png);
+    background-size: calc(250vh);
+    background-position: 50% 50%;
+}
+
+#background-cover-overlay {
+    background-color: rgba(0,0,0,0.9);
+}
+
+#background-gradient {
+    background: linear-gradient(45deg, #DF030E99 0%, #04A5E399 100%);
+}
+
+#cover-container {
+    background: linear-gradient(45deg, #DF030E 0%, #04A5E3 100%);
+    box-shadow: 74.98123931884766px 74.98123931884766px 74.98123931884766px;
+    border-radius: 20.02px; filter: blur(74.98px)
+}
+*/
+
+.d-flex {
+    display: flex;
+}
+
+.flex-justify-content-center {
+    justify-content: center;
+}
