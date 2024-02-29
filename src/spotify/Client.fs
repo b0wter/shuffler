@@ -97,3 +97,13 @@ module Client =
 
     let createConfiguredRetriever clientId clientSecret artistId : ConfiguredRetriever =
         fun () -> artistWithAlbums clientId clientSecret artistId
+            
+    let albumOffset (album: Album) : int * int =
+        System.Text.RegularExpressions.Regex.Match(album.Name, "\d{3}").Captures
+        |> Seq.tryHead
+        |> Option.map (fun hit ->
+            let number = hit.Value |> Int32.Parse
+            if number <= 123 then (50, 50)
+            else (60, 50))
+        |> Option.defaultValue (60, 50)
+        

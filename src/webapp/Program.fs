@@ -57,39 +57,65 @@ module Views =
             body [] content
         ]
 
-    let index (artist : Shuffler.Contracts.Artists.Artist) (album: Shuffler.Contracts.Albums.Album) (previousAlbumId: string option) =
-        let sourceSet = album.AlbumArts |> List.map (fun image -> $"")
-        [
-            div [ _class "container center-text" ] [
-                div [ _id "header" ] [
-                    a [ _class "light-gray"; _href "https://github.com/b0wter/spotify_shuffle" ] [ text "GitHub" ]
-                    a [ _class "light-gray ml-1"; _href "https://github.com/b0wter/spotify_shuffle" ] [ text "Twitter" ]
-                    p [ _id "clear-blacklist"; _class "small" ] [
-                        a [ _class "light-gray"; _href "#"; _onclick "var shouldDelete = confirm('Remove all items from blacklist?'); if(shouldDelete) { document.getElementById('clear-blacklist').children[0].innerHTML = 'clear blacklist (0 elements)'; document.cookie = 'ignoredEpisodes' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'; }; " ] [ text "clear blacklist (XYZ elements)" ]
-                    ]
-                    if previousAlbumId.IsSome then
-                        div [ _id "blacklist-alert"; _class "alert-warning mb-2" ] [ text $"%s{previousAlbumId.Value} is now blacklisted" ] [
-                            a [ _class "alert-warning"; _href $"/?undo=%s{previousAlbumId.Value}" ] [ text "undo" ]
-                        ]
-                    
-                ]
+    let index (album: Shuffler.Contracts.Albums.Album) (hasPreviousAlbum: bool) (coverCenterX: int, coverCenterY: int) =
+        let sourceSet = album.AlbumArts |> List.map (fun image -> $"%s{image.Url} %i{image.Width}w") |> String.concat ", "
+        let largestAlbumArt = album.AlbumArts |> List.maxBy (_.Width)
+        let largestAlbumArtUrl = largestAlbumArt.Url
+        let largestAlbumWidth = largestAlbumArt.Width
+        let aspectRatio = (largestAlbumArt.Width |> float) / (largestAlbumArt.Height |> float)
+        let boxShadowSize = (largestAlbumWidth |> float) / 4.4 // 4.4 is predefined by the design
+        div [ _id "background-image-container"; _class "h-100 w-100"; _style $"background-image: url(%s{largestAlbumArtUrl}); background-position: %i{coverCenterX}%% %i{coverCenterY}%%"] [
+            
+            div [ _id "background-color-overlay"; _class "h-100vh"] [
                 
-                a [] [
-                    img [ _class "max-width-90" _srcset=   
+                div [ _id "layout-container"; _class "d-flex justify-content-space-between no-wrap-column"] [
+
+                    div [ _class "d-flex justify-content-center align-items-center"; _style "height: 100px; margin-top: 5vh"] [
+                        a [_class "mr-05 p-20"; _href "https://github.com/b0wter/shuffler"] [img [_class "social-button"; _src "/img/github.svg"; _alt "Link to github"]]
+                        a [_class "ml-05 p-20"; _href "https://x.com/b0wter"] [img [_class "social-button"; _src "/img/x.svg"; _alt "Link to X"]]
+                    ]
+
+                    div [_class "d-flex justify-content-center"; _style "max-height: calc(80vh - 300px)"] [
+                        div [ _style $"position: relative; aspect-ratio: %f{aspectRatio}; width: min(95vw, %i{largestAlbumWidth}px)" ] [
+                            img [_id "cover-img"; _class "center-in-relative-parent"; _style $"z-index: 2; max-height: 100%%; max-width: min(95vw, %i{largestAlbumWidth}px); border-radius: 20px;"; _srcset sourceSet; _alt "album cover"]
+                            div [_id "cover-text"; _class "center-in-relative-parent"; _style "display: none" ] [ encodedText album.Name ]
+                            div [_class "center-in-relative-parent"; _style $"z-index: 1; aspect-ratio: 1; height: 100%%; opacity: 0.30; background: linear-gradient(45deg, #DF030E 0%%, #04A5E3 100%%); box-shadow: %f{boxShadowSize}px %f{boxShadowSize}px %f{boxShadowSize}px; border-radius: 20.02px; filter: blur(%f{boxShadowSize}px)"] []
+                        ]
+                    ]
+
+                    div [] [
+                        div [_class "d-flex align-items-center justify-content-center"] [
+                            if hasPreviousAlbum then
+                                a [ _onclick "history.back()" ] [img [_class "p-15"; _style "padding: 1.5em; transform: scaleX(-1)"; _src "/img/next.svg"; _alt "return to previous album"]]
+                            else
+                                img [ _style "padding: 1.5rem; height: 25px; width: 25px transform: scaleX(-1)"; _src "/img/empty-circle.svg" ]
+                            a [_href album.UrlToOpen] [img [_style "height: 10rem"; _src "img/play.svg"; _alt $"play current album '%s{album.Name}' on Spotify"]]
+                            a [_href "/"] [img [_class "p-15"; _src "/img/next.svg"; _alt "get next suggestion"]]
+                        ]
+                        div [_style "text-decoration: none; color:white";] [
+                            div [] [
+                                div [_style "font-family: urbanist,sans-serif; text-transform: uppercase"; _class "d-flex justify-content-center align-items-center"] [ encodedText "0 albums on blacklist"]
+                                div [_style "font-family: urbanist,sans-serif; font-weight: 1000; height: 5rem; text-transform: uppercase"; _class "d-flex justify-content-center align-items-center"] [
+                                    a [_href $"/block/%s{album.Id}"; _class "z-2 non-styled-link d-flex align-items-center mr-10"] [
+                                        img [_style "height: 2rem"; _class "mr-05"; _src "/img/block.svg"; _alt "block current album"]
+                                        div [] [ encodedText "add"]
+                                    ]
+                                    a [_href "/clearAll"; _class "z-2 non-styled-link d-flex align-items-center ml-10"] [
+                                        img [_style "height: 2rem"; _class "mr-05"; _src "/img/clear-format-white.svg"; _alt "clear album blacklist"]
+                                        div [] [ encodedText "clear"]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+
+                    div [_class "z-1"; _style "opacity: 0.4; width: 239.62px; height: 244.60px; left: calc(50vw - 120px); top: calc(100vh); position: absolute; transform: rotate(-43.55deg); transform-origin: 0 0"] [
+                        div [_class "z-1"; _style "width: 133.77px; height: 179.56px; left: 0; top: 0; position: absolute; transform: rotate(-43.55deg); transform-origin: 0 0; background: #DF030E; box-shadow: 210.86053466796875px 210.86053466796875px 210.86053466796875px; filter: blur(210.86px)"] []
+                        div [_class "z-1"; _style "width: 133.54px; height: 183.31px; left: 119.12px; top: -28.67px; position: absolute; transform: rotate(-43.55deg); transform-origin: 0 0; background: #04A5E3; box-shadow: 210.86053466796875px 210.86053466796875px 210.86053466796875px; filter: blur(210.86px)"] []
+                    ]
                 ]
             ]
         ]
-(*
-<div class="flex-container">
-    <div class="row"> 
-        <div class="flex-item">1</div>
-        <div class="flex-item">2</div>
-        <div class="flex-item">3</div>
-        <div class="flex-item">4</div>
-    </div>
-</div>
-*)            
-        ] |> layout artist.Name
 
 // ---------------------------------
 // Web app
@@ -107,6 +133,43 @@ let indexHandler (id: string option) =
     fun (next: HttpFunc) (ctx: HttpContext) ->
         taskResult {
             let retriever = ctx.RequestServices.GetService<Shuffler.Contracts.Client.ConfiguredRetriever>()
+            let albumCoverOffsets = ctx.RequestServices.GetService<Shuffler.Contracts.Client.AlbumCoverOffset>()
+            let! artistWithAlbums = retriever()
+            
+            let previous =
+                match ctx.GetQueryStringValue("previous") with
+                | Ok previousId when artistWithAlbums.Albums |> Array.exists (fun a -> a.Id = previousId) ->
+                    Some previousId
+                | _ -> None
+                    
+            let artist = artistWithAlbums.Artist
+            let album, coverCenter =
+                match id with
+                | Some i ->
+                    match artistWithAlbums.Albums |> Array.tryFind (fun a -> a.Id = i) with
+                    | Some a ->
+                        a, a |> albumCoverOffsets
+                    | None -> failwithf $"There is no album with the given id '%s{i}'"
+                | None ->
+                    let a = artistWithAlbums.Albums[random.Next(artistWithAlbums.Albums.Length)]
+                    a, a |> albumCoverOffsets
+                
+            let view = Views.layout artist.Name [Views.index album false coverCenter]
+            return! (htmlView view next ctx)
+        } |> mapError 
+
+let toJson (_: HttpFunc) (ctx: HttpContext) (result: System.Threading.Tasks.Task<Result<'a, string>>) =
+    task {
+        match! result with
+        | Ok payload -> return! ctx.WriteJsonAsync payload
+        | Error e -> return! ctx.WriteJsonAsync {| error = e |}
+    }
+
+let apiHandler (id: string option) =
+    let random = Random()
+    fun (next: HttpFunc) (ctx: HttpContext) ->
+        taskResult {
+            let retriever = ctx.RequestServices.GetService<Shuffler.Contracts.Client.ConfiguredRetriever>()
             let! artistWithAlbums = retriever()
             let artist = artistWithAlbums.Artist
             let album =
@@ -116,14 +179,23 @@ let indexHandler (id: string option) =
                     | Some a -> a
                     | None -> failwithf $"There is no album with the given id '%s{i}'"
                 | None -> artistWithAlbums.Albums[random.Next(artistWithAlbums.Albums.Length)]
-            let view = Views.index artist album
-            return! (htmlView view next ctx)
-        } |> mapError 
+            return {| artist = artist; album = album |}
+        } |> toJson next ctx
+        
+let health () =
+    fun (_: HttpFunc) (ctx: HttpContext) ->
+        task {
+            return! ctx.WriteTextAsync "OK"
+        }
 
 let webApp =
     choose [
         GET >=>
             choose [
+                route "/api/" >=> apiHandler None
+                route "/api" >=> apiHandler None
+                route "/health" >=> health ()
+                route "/health/" >=> health ()
                 route "/" >=> indexHandler None
                 routef "/%s" (fun s -> indexHandler (Some s))
             ]
@@ -165,11 +237,20 @@ let configureApp (app : IApplicationBuilder) =
 let configureServices (services : IServiceCollection) =
     let configuredRetrieverOp : Func<IServiceProvider, Shuffler.Contracts.Client.ConfiguredRetriever> = Func<IServiceProvider, Shuffler.Contracts.Client.ConfiguredRetriever>(
         fun (serviceProvider: IServiceProvider) ->
-            let clientId = Environment.GetEnvironmentVariable("SHUFFLER_SPOTIFY_CLIENT_ID")
-            let clientSecret = Environment.GetEnvironmentVariable("SHUFFLER_SPOTIFY_CLIENT_SECRET")
-            let artistId = Environment.GetEnvironmentVariable("SHUFFLER_SPOTIFY_ARTIST_ID")
+            let getEnvOrFail name =
+                let value = Environment.GetEnvironmentVariable(name)
+                if value |> String.IsNullOrWhiteSpace then failwithf "Cannot start because environment variable %s is not set" name
+                else value
+            
+            let clientId = "SHUFFLER_SPOTIFY_CLIENT_ID" |> getEnvOrFail
+            let clientSecret = "SHUFFLER_SPOTIFY_CLIENT_SECRET" |> getEnvOrFail
+            let artistId = "SHUFFLER_SPOTIFY_ARTIST_ID" |> getEnvOrFail
+            
             Shuffler.Spotify.Client.createConfiguredRetriever clientId clientSecret artistId)
+    let configureAlbumCoverOp : Func<IServiceProvider, Shuffler.Contracts.Client.AlbumCoverOffset> = Func<IServiceProvider, Shuffler.Contracts.Client.AlbumCoverOffset>(
+        fun (_: IServiceProvider) -> Shuffler.Spotify.Client.albumOffset)
     services.AddSingleton<Shuffler.Contracts.Client.ConfiguredRetriever, Shuffler.Contracts.Client.ConfiguredRetriever>(configuredRetrieverOp) |> ignore
+    services.AddSingleton<Shuffler.Contracts.Client.AlbumCoverOffset, Shuffler.Contracts.Client.AlbumCoverOffset>(configureAlbumCoverOp) |> ignore
     
     services.AddCors()    |> ignore
     services.AddGiraffe() |> ignore
